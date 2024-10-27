@@ -1,0 +1,68 @@
+
+services:
+  ImageSharingUseCase-mq:
+    image: rabbitmq:3-management
+    container_name: ImageSharingUseCase.RabbitMq
+    hostname: imageSharingUseCase-mq
+    volumes:
+        - ./.containers/queue/data/:/var/lib/rabbitmq
+        - ./.containers/queue/log/:/var/log/rabbitmq
+    environment:
+        RABBITMQ_DEFAULT_USER: guest
+        RABBITMQ_DEFAULT_PASS: guest
+    ports:
+     - "15672:15672"
+     - "25676:25676"
+     - "5672:5672"
+    networks:
+     - imageSharing_network
+     
+  auth-api:
+    image: imagesharing-auth-api
+    container_name: ImageSharingUseCase.Auth.Api
+    build:
+      context: .
+      dockerfile: AuthContext/ImageSharing.Auth.Api/Dockerfile
+    ports:
+       - "8080:80"
+       - "8081:443"
+    volumes:
+       - ~/.aspnet/https:/https:ro
+    environment:
+       ASPNETCORE_ENVIRONMENT: "Development"
+       ASPNETCORE_URLS: "https://0.0.0.0:443;http://0.0.0.0:80"
+       ASPNETCORE_Kestrel__Certificates__Default__Password: "123456"       
+       ASPNETCORE_Kestrel__Certificates__Default__Path: /https/imagesharingusecaseapp.pfx 
+    networks:
+     - imageSharing_network
+     
+  search-api:
+    image: imagesharing-search-api
+    container_name: ImageSharingUseCase.Search.Api
+    build:
+      context: .
+      dockerfile: SearchContext/ImageSharing.Search.Api/Dockerfile
+    ports:
+       - "5000:80"
+       - "5001:443"
+    volumes:
+       - ~/.aspnet/https:/https:ro
+    environment:
+       ASPNETCORE_ENVIRONMENT: "Development"
+       ASPNETCORE_URLS: "https://0.0.0.0:443;http://0.0.0.0:80"
+       ASPNETCORE_Kestrel__Certificates__Default__Password: "123456"       
+       ASPNETCORE_Kestrel__Certificates__Default__Path: /https/imagesharingusecaseapp.pfx 
+    networks:
+     - imageSharing_network
+     
+
+    
+networks:
+  imageSharing_network:
+    driver: bridge
+    
+# networks:
+  # default:
+    # ipam:
+      # config:
+        # - subnet: 172.177.0.0/16
