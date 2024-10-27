@@ -1,0 +1,6 @@
+@ImageSharing.Auth.Api_HostAddress = http://localhost:5166
+
+GET {{ImageSharing.Auth.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
