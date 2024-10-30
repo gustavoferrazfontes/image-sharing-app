@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using ImageSharing.Auth.Infra.Repositories;
+using ImageSharing.SharedKernel.Data;
 
 namespace ImageSharing.Auth.Dependencies;
 
@@ -43,6 +45,11 @@ public static class AuthenticationServiceExtension
         serviceCollection.AddScoped<TokenGenerator>();
         serviceCollection.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateNewUserCommand).Assembly));
         serviceCollection.AddScoped<IUserEncryptService,UserEncryptService>();
+        serviceCollection.AddScoped<IUserRepository,UserRepository>();
+        serviceCollection.AddScoped<IUnitOfWork,UnitOfWork>();
+        
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
     }
 
 }
