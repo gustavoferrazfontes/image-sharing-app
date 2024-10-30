@@ -1,4 +1,5 @@
-﻿using ImageSharing.Auth.Domain.Commands;
+﻿using CSharpFunctionalExtensions;
+using ImageSharing.Auth.Domain.Commands;
 using ImageSharing.Auth.Domain.Interfaces;
 using ImageSharing.Auth.Domain.Models;
 using ImageSharing.Contracts;
@@ -13,9 +14,9 @@ internal sealed class CreateNewUserCommandHandler(
     IPublishEndpoint publishEndpoint,
     IUserRepository userRepository,
     IUnitOfWork unitOfWork)
-    : IRequestHandler<CreateNewUserCommand>
+    : IRequestHandler<CreateNewUserCommand,Result>
 {
-    public async Task Handle(CreateNewUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(CreateNewUserCommand request, CancellationToken cancellationToken)
     {
         
         var avatarPath = "";
@@ -24,16 +25,15 @@ internal sealed class CreateNewUserCommandHandler(
         var base64Salt = Convert.ToBase64String(salt);
 
         var newUser = new User(request.UserName, request.Email, avatarPath, hashedPassword, base64Salt);
-        
        if((await userRepository.IsEmailExistAsync(newUser.Email)))
-            throw new Exception("Email already exist"); 
+            Result.Failure("Email already exist"); 
        
         await userRepository.AddAsync(newUser);
-        
         await unitOfWork.CommitAsync();
         
         await publishEndpoint.Publish(new CreatedUserEvent { Id = newUser.Id, Email = newUser.Email, UserName = newUser.UserName, Avatar = "" }, cancellationToken);
 
+        return Result.Success();
     }
 }
 

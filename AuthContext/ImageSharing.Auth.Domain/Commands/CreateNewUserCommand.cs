@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using CSharpFunctionalExtensions;
+using MediatR;
 
 namespace ImageSharing.Auth.Domain.Commands;
 
-public sealed class CreateNewUserCommand : IRequest
+public sealed class CreateNewUserCommand : IRequest<Result>
 {
     public CreateNewUserCommand(string userName, string email,string password, string avatar)
     {
