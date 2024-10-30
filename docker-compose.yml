@@ -17,6 +17,24 @@ services:
     networks:
      - imageSharing_network
      
+  postgres:
+    image: imagesharing-postgres:v1.0
+    container_name: image_sharing_db
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - imageSharing_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      retries: 5
+ 
   auth-api:
     image: imagesharing-auth-api
     container_name: ImageSharingUseCase.Auth.Api
