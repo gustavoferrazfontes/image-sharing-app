@@ -1,17 +1,12 @@
-﻿using MediatR;
+﻿using CSharpFunctionalExtensions;
+using MediatR;
 
 namespace ImageSharing.Auth.Domain.Commands;
 
-public class LoginCommand:IRequest<LoginResponse>
+public sealed class LoginCommand(string email, string password) : IRequest<Result<LoginResponse>>
 {
-    public LoginCommand(string email, string password)
-    {
-        Email = email;
-        Password = password;
-    }
-
-    public string Email { get; set; }
-    public string Password { get; set; }
+    public string Email { get; set; } = email;
+    public string Password { get; set; } = password;
 }
 
 public record LoginResponse
