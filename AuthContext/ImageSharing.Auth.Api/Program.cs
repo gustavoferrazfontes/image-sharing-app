@@ -1,6 +1,9 @@
 using ImageSharing.Auth.Dependencies;
+using ImageSharing.Auth.Infra.EF;
 using MassTransit;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,12 +30,12 @@ builder.Services.AddSwaggerGen(opt =>
             {
                 Reference = new OpenApiReference
                 {
-                    Type=ReferenceType.SecurityScheme,
-                    Id="Bearer"
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
                 }
             },
 
-            new string[]{}
+            new string[] { }
         }
     });
 });
@@ -45,30 +48,31 @@ builder.Services.AddMassTransit(x =>
     {
         cfg.AutoDelete = true;
         cfg.Host("172.17.0.1", h =>
-        {
-            h.Username("guest");
-            h.Password("guest");
-        });
-
-
+         {
+             h.Username("guest");
+             h.Password("guest");
+         });
+        
         cfg.ConfigureEndpoints(context);
-
-
     });
 });
 
 
 builder.Services.AddAuth(builder.Configuration);
 
+builder.Services.AddDbContext<AuthDbContext>(opt =>
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("AuthContext"))
+);
+
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-app.UseSwagger();
-app.UseSwaggerUI();
-//}
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 
