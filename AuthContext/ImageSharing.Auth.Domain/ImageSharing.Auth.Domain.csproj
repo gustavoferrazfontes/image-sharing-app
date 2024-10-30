@@ -15,10 +15,12 @@
 
   <ItemGroup>
     <Folder Include="Events\" />
+    <Folder Include="Queries\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Contracts\ImageSharing.Contracts\ImageSharing.Contracts.csproj" />
+    <ProjectReference Include="..\..\SharedKernel\ImageSharing.SharedKernel\ImageSharing.SharedKernel.csproj" />
   </ItemGroup>
 
 </Project>
