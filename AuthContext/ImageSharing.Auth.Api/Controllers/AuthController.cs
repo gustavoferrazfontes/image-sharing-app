@@ -1,57 +1,28 @@
 ﻿// Ignore Spelling: Auth
 
+using ImageSharing.Auth.Api.Models.Auth.Requests;
 using ImageSharing.Auth.Domain.Commands;
 using ImageSharing.Auth.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RabbitMQ.Client;
 using System.Security.Claims;
 
 namespace ImageSharing.Auth.Api.Controllers;
 
 [Route("api/auth")]
 [ApiController]
-public class AuthController : ControllerBase
-{
-    private readonly TokenGenerator tokenGenerator;
-    private readonly IMediator mediator;
-    private readonly IConnection _connection;
-
-    public AuthController(TokenGenerator tokenGenerator,IMediator mediator)
+public class AuthController(TokenGenerator tokenGenerator, IMediator mediator)
+    : ControllerBase
     {
-        this.tokenGenerator = tokenGenerator;
-        this.mediator = mediator;
-        //var factory = new ConnectionFactory()
-        //{
-        //    HostName = "172.17.0.1",
-        //};
 
-        //_connection = factory.CreateConnection();
-    }
     [HttpPost("login")]
     [AllowAnonymous]
-    public IActionResult Login()
+    public async Task<IActionResult> Login([FromBody] LoginRequest payload)
     {
-        var generatedToken = tokenGenerator.GenerateToken(new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, "John Doe")
-        });
+        var result = await mediator.Send(new LoginCommand(payload.Email,payload.Password));
 
-        //using var channel = _connection.CreateModel();
-        //channel.QueueDeclare(queue: "q.created-users.events",
-        //                     durable: false,
-        //                     exclusive: false,
-        //                     autoDelete: false,
-        //                     arguments: null);
-
-        //var authPayload = JsonSerializer.Serialize(new { email = "john.doe@gmail.com", name = "John Doe" });
-        //var body = Encoding.UTF8.GetBytes(authPayload);
-
-        //channel.BasicPublish(exchange: "",
-        //                     routingKey: "q.created-users.events",
-        //                     basicProperties: null,
-        //                     body: body);
+        var generatedToken = tokenGenerator.GenerateToken([new Claim(ClaimTypes.Name, "John Doe")]);
 
         return Ok(new { access_token = generatedToken });
     }
