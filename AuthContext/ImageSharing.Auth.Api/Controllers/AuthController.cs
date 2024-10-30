@@ -14,7 +14,7 @@ namespace ImageSharing.Auth.Api.Controllers;
 [ApiController]
 public class AuthController(TokenGenerator tokenGenerator, IMediator mediator)
     : ControllerBase
-    {
+{
 
     [HttpPost("login")]
     [AllowAnonymous]
@@ -28,10 +28,9 @@ public class AuthController(TokenGenerator tokenGenerator, IMediator mediator)
     }
 
     [HttpPost("signup")]
-    public async Task<IActionResult> CreateUser()
+    public async Task<IActionResult> CreateUser([FromBody] SignInRequest payload)
     {
-
-        await this.mediator.Send(new CreateNewUserCommand("John Doe", "johndoe@gmail.com", "123456", ""));
+        await mediator.Send(new CreateNewUserCommand(payload.Name, payload.Email, payload.Password, payload.ConfirmPassword));
         return Ok();
     }
 
