@@ -4,6 +4,7 @@ using ImageSharing.Auth.Domain.Interfaces;
 using ImageSharing.Auth.Domain.Models;
 using ImageSharing.Contracts;
 using ImageSharing.SharedKernel.Data;
+using ImageSharing.SharedKernel.Data.Storage;
 using MassTransit;
 using MediatR;
 
@@ -19,12 +20,12 @@ internal sealed class CreateNewUserCommandHandler(
     public async Task<Result> Handle(CreateNewUserCommand request, CancellationToken cancellationToken)
     {
         
-        var avatarPath = "";
+        
         var salt = userEncryptService.GenerateSalt();
         var hashedPassword = userEncryptService.HashPassword(request.Password, salt);
         var base64Salt = Convert.ToBase64String(salt);
 
-        var newUser = new User(request.UserName, request.Email, avatarPath, hashedPassword, base64Salt);
+        var newUser = new User(request.UserName, request.Email, hashedPassword, base64Salt);
        if((await userRepository.IsEmailExistAsync(newUser.Email)))
             Result.Failure("Email already exist"); 
        
