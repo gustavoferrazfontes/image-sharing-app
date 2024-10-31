@@ -31,7 +31,7 @@ public class AuthController(TokenGenerator tokenGenerator, IMediator mediator)
     [HttpPost("signup")]
     public async Task<IActionResult> CreateUser([FromBody] SignInRequest payload)
     {
-        var command = new CreateNewUserCommand(payload.Name, payload.Email, payload.Password, payload.ConfirmPassword);
+        var command = new CreateNewUserCommand(payload.Name, payload.Email, payload.Password);
         var result = await mediator.Send(command);
         return ResponseResult(result);
     }
