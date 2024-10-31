@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\SharedKernel\ImageSharing.Storage.Azure\ImageSharing.Storage.Azure.csproj" />
     <ProjectReference Include="..\ImageSharing.Auth.Dependencies\ImageSharing.Auth.Dependencies.csproj" />
     <ProjectReference Include="..\ImageSharing.Auth.Domain\ImageSharing.Auth.Domain.csproj" />
   </ItemGroup>

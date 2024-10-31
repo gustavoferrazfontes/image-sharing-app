@@ -37,6 +37,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageSharing.Auth.Domain.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageSharing.SharedKernel", "SharedKernel\ImageSharing.SharedKernel\ImageSharing.SharedKernel.csproj", "{887B3D79-643C-44EB-8E1C-2D9A71662893}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageSharing.Storage.Azure", "SharedKernel\ImageSharing.Storage.Azure\ImageSharing.Storage.Azure.csproj", "{D728A5AD-35A1-4232-BC1F-6D6158FD2DF9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{887B3D79-643C-44EB-8E1C-2D9A71662893}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{887B3D79-643C-44EB-8E1C-2D9A71662893}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{887B3D79-643C-44EB-8E1C-2D9A71662893}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D728A5AD-35A1-4232-BC1F-6D6158FD2DF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D728A5AD-35A1-4232-BC1F-6D6158FD2DF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D728A5AD-35A1-4232-BC1F-6D6158FD2DF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D728A5AD-35A1-4232-BC1F-6D6158FD2DF9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
