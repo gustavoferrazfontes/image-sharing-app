@@ -1,4 +1,5 @@
 # image-sharing-app
+
 An Image sharing app use case study
 
 ## EF Core migrtions
@@ -6,6 +7,10 @@ An Image sharing app use case study
 add a new migration:
 
 `dotnet ef migrations add <name of migration> --project <project source migration> --startup-project <api project>`
+
+run migrations:
+
+`dotnet ef database update <name of migration> --project <project source migration> --startup-project <api project>`
 
 e.g:
 
