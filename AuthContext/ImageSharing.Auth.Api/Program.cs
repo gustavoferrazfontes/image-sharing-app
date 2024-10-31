@@ -1,9 +1,13 @@
 using ImageSharing.Auth.Dependencies;
 using ImageSharing.Auth.Infra.EF;
+using ImageSharing.SharedKernel.Data.Storage;
+using ImageSharing.Storage.Azure;
+using ImageSharing.Storage.Azure.Abstractions;
 using MassTransit;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,7 +51,7 @@ builder.Services.AddMassTransit(x =>
     x.UsingRabbitMq((context, cfg) =>
     {
         cfg.AutoDelete = true;
-        cfg.Host("172.17.0.1", h =>
+        cfg.Host("localhost", h =>
          {
              h.Username("guest");
              h.Password("guest");
@@ -59,11 +63,17 @@ builder.Services.AddMassTransit(x =>
 
 
 builder.Services.AddAuth(builder.Configuration);
-
 builder.Services.AddDbContext<AuthDbContext>(opt =>
     opt.UseNpgsql(builder.Configuration.GetConnectionString("AuthContext"))
 );
 
+builder.Services.Configure<BlobStorageSettings>(builder.Configuration.GetSection("Storage"));
+builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<BlobStorageSettings>>().Value);
+builder.Services.AddScoped<IStorageService>(sp =>
+{
+    var settings = sp.GetRequiredService<BlobStorageSettings>();
+    return new AzureStorageService(settings);
+});
 
 var app = builder.Build();
 
