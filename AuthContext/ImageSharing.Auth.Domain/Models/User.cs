@@ -7,12 +7,11 @@ public class User:IEntity
 {
     protected User(){}
     
-    public User(string userName, string email, string avatarPath, string hashedPassword, string salt)
+    public User(string userName, string email, string hashedPassword, string salt)
     {
         Id = Guid.NewGuid();
         UserName = userName;
         Email = email;
-        AvatarPath = avatarPath;
         HashedPassword = hashedPassword;
         Base64Salt = salt;
         CreatedAt = DateTime.Now;
@@ -27,4 +26,9 @@ public class User:IEntity
     public bool IsActive { get; private  set; }
     public bool IsDeleted { get;private set; }
     public DateTime CreatedAt { get; private set; }
+    
+    public void SetAvatarPath(string path)
+    {
+        AvatarPath = path;
+    }
 }
