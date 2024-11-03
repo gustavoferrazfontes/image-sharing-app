@@ -1,8 +1,11 @@
-using ImageSharing.Contracts;
-using ImageSharing.Search.Domain;
 using ImageSharing.Search.Domain.Handlers.Consumers;
-using ImageSharing.Search.Infra.QueueConsumers;
+using ImageSharing.Search.Domain.Interfaces;
+using ImageSharing.Search.Infra.Repositories;
+using ImageSharing.SharedKernel.Data.Storage;
+using ImageSharing.Storage.Azure;
+using ImageSharing.Storage.Azure.Abstractions;
 using MassTransit;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,10 +49,11 @@ builder.Services.AddMassTransit(x =>
     x.SetKebabCaseEndpointNameFormatter();
 
     x.AddConsumer<CreatedUserEventConsumer>();
+    x.AddConsumer<UpdatedUserEventConsumer>();
 
     x.UsingRabbitMq((context, cfg) =>
     {
-        cfg.Host("172.17.0.1", h =>
+        cfg.Host("localhost", h =>
         {
             h.Username("guest");
             h.Password("guest");
@@ -57,6 +61,15 @@ builder.Services.AddMassTransit(x =>
 
         cfg.ConfigureEndpoints(context);
     });
+});
+
+builder.Services.AddScoped<ISearchRepository, SearchRepository>();
+builder.Services.Configure<BlobStorageSettings>(builder.Configuration.GetSection("Storage"));
+builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<BlobStorageSettings>>().Value);
+builder.Services.AddScoped<IStorageService>(sp =>
+{
+    var settings = sp.GetRequiredService<BlobStorageSettings>();
+    return new AzureStorageService(settings);
 });
 
 
