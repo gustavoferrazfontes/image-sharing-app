@@ -39,6 +39,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageSharing.SharedKernel",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageSharing.Storage.Azure", "SharedKernel\ImageSharing.Storage.Azure\ImageSharing.Storage.Azure.csproj", "{D728A5AD-35A1-4232-BC1F-6D6158FD2DF9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{62966274-A538-4116-915A-084D2E966282}"
+	ProjectSection(SolutionItems) = preProject
+		Tools\appsettings.json = Tools\appsettings.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageSharing.AzureSearch.Upload", "Tools\ImageSharing.AzureSearch.Upload\ImageSharing.AzureSearch.Upload.csproj", "{EB4AD63D-80E5-4C72-9017-31A33402E0B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +108,10 @@ Global
 		{D728A5AD-35A1-4232-BC1F-6D6158FD2DF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D728A5AD-35A1-4232-BC1F-6D6158FD2DF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D728A5AD-35A1-4232-BC1F-6D6158FD2DF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB4AD63D-80E5-4C72-9017-31A33402E0B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB4AD63D-80E5-4C72-9017-31A33402E0B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB4AD63D-80E5-4C72-9017-31A33402E0B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB4AD63D-80E5-4C72-9017-31A33402E0B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,6 +129,7 @@ Global
 		{843B61E3-021D-43F4-AD71-EE72CA942C02} = {1F6D65A6-C648-4F65-AE9E-A9C7DB9D3C97}
 		{B1DE5314-FAB8-4DCD-8D94-81C5744FA570} = {3639D8C7-89A0-4232-A330-F0E8C04BF697}
 		{30351F6F-FF59-4858-A452-83D477865C47} = {3639D8C7-89A0-4232-A330-F0E8C04BF697}
+		{EB4AD63D-80E5-4C72-9017-31A33402E0B8} = {62966274-A538-4116-915A-084D2E966282}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CAC7A6D4-3CC4-492A-84FC-BDF12CC9C2A1}
