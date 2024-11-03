@@ -1,20 +1,20 @@
 ﻿using ImageSharing.Contracts;
+using ImageSharing.Search.Domain.Interfaces;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 
 namespace ImageSharing.Search.Domain.Handlers.Consumers;
 
-public class CreatedUserEventConsumer : IConsumer<CreatedUserEvent>
+public class CreatedUserEventConsumer(ILogger<CreatedUserEventConsumer> logger, ISearchRepository searchRepository)
+    : IConsumer<UserCreatedEvent>
 {
-    private readonly ILogger<CreatedUserEventConsumer> logger;
+    public async Task Consume(ConsumeContext<UserCreatedEvent> context)
+    {
+        var result = await searchRepository.AddAsync(context.Message);
 
-    public CreatedUserEventConsumer(ILogger<CreatedUserEventConsumer> logger)
-    {
-        this.logger = logger;
-    }
-    public Task Consume(ConsumeContext<CreatedUserEvent> context)
-    {
-        logger.LogInformation("User created: {UserName}", context.Message.UserName);
-        return Task.CompletedTask;
+        if (result.IsFailure)
+            logger.LogError(result.Error);
+        else
+            logger.LogInformation("User added to search index");
     }
 }
