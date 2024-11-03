@@ -32,7 +32,8 @@ internal sealed class CreateNewUserCommandHandler(
         await userRepository.AddAsync(newUser);
         await unitOfWork.CommitAsync();
         
-        await publishEndpoint.Publish(new CreatedUserEvent { Id = newUser.Id, Email = newUser.Email, UserName = newUser.UserName, Avatar = "" }, cancellationToken);
+        var userCreatedEvent = new UserCreatedEvent{Id= newUser.Id, UserName = newUser.UserName, Email = newUser.Email};
+        await publishEndpoint.Publish(userCreatedEvent, cancellationToken);
 
         return Result.Success();
     }
