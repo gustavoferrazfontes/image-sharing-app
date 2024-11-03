@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Contracts\ImageSharing.Contracts\ImageSharing.Contracts.csproj" />
+    <ProjectReference Include="..\..\SharedKernel\ImageSharing.Storage.Azure\ImageSharing.Storage.Azure.csproj" />
     <ProjectReference Include="..\ImageSharing.Search.Domain\ImageSharing.Search.Domain.csproj" />
     <ProjectReference Include="..\ImageSharing.Search.Infra\ImageSharing.Search.Infra.csproj" />
   </ItemGroup>
