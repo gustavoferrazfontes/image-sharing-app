@@ -1,5 +1,7 @@
+using ImageSharing.Search.Api.Models;
 using ImageSharing.Search.Domain.Handlers.Consumers;
 using ImageSharing.Search.Domain.Interfaces;
+using ImageSharing.Search.Domain.Queries;
 using ImageSharing.Search.Infra.Repositories;
 using ImageSharing.SharedKernel.Data.Storage;
 using ImageSharing.Storage.Azure;
@@ -71,6 +73,16 @@ builder.Services.AddScoped<IStorageService>(sp =>
     var settings = sp.GetRequiredService<BlobStorageSettings>();
     return new AzureStorageService(settings);
 });
+
+builder.Services.Configure<AzureSearchSettings>(builder.Configuration.GetSection("AzureSearch"));
+builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<AzureSearchSettings>>().Value);
+builder.Services.AddScoped<IUserRepository,UserRepository>(sp =>
+{
+    var setting = sp.GetRequiredService<AzureSearchSettings>();
+    return new UserRepository(setting.SearchServiceUri,setting.SearchServiceApiKey);
+});
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetUsersQuery).Assembly));
 
 
 var app = builder.Build();
