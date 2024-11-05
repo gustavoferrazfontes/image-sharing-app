@@ -1,5 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
 using ImageSharing.Contracts;
+using ImageSharing.Search.Domain.Queries;
+using ImageSharing.SharedKernel.Model;
 
 namespace ImageSharing.Search.Domain.Interfaces;
 

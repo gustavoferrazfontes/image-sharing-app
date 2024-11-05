@@ -1,5 +1,4 @@
 ﻿using Azure.Search.Documents.Indexes;
-using ImageSharing.Search.Domain.Interfaces;
 
 namespace ImageSharing.Search.Infra;
 
