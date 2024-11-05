@@ -2,7 +2,9 @@
 using CSharpFunctionalExtensions;
 using ImageSharing.Contracts;
 using ImageSharing.Search.Domain.Interfaces;
+using ImageSharing.Search.Domain.Queries;
 using ImageSharing.SharedKernel.Data.Storage;
+using ImageSharing.SharedKernel.Model;
 
 namespace ImageSharing.Search.Infra.Repositories;
 
