@@ -1,4 +1,4 @@
-namespace ImageSharing.Search.Api
+mespace ImageSharing.Search.Api
 {
     public class WeatherForecast
     {

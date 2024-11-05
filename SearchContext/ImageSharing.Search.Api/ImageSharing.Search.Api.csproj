@@ -25,4 +25,9 @@
     <ProjectReference Include="..\ImageSharing.Search.Infra\ImageSharing.Search.Infra.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="WeatherForecast.cs" />
+    <Compile Remove="Controllers\WeatherForecastController.cs" />
+  </ItemGroup>
+
 </Project>
