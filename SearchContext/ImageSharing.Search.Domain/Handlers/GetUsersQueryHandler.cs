@@ -10,17 +10,14 @@ namespace ImageSharing.Search.Domain.Handlers;
 public sealed class GetUsersQueryHandler(IStorageService storageService, IUserRepository repository)
     : IRequestHandler<GetUsersQuery, Result<PaginatedResult<GetUsersQueryResponse>>>
 {
-    private readonly IStorageService _storageService = storageService;
-    private readonly IUserRepository _repository = repository;
-
     public Task<Result<PaginatedResult<GetUsersQueryResponse>>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
     {
-         return _repository.GetPaginatedAsync(request.PageSize, request.LastResultId)
+         return repository.GetPaginatedAsync(request.PageSize, request.LastResultId)
             .Tap(item =>
             {
                 item.Items?.ToList().ForEach(item =>
                 {
-                    var _ =  _storageService.TryGetblobSasUri(item.UserId,  out string url,new TimeSpan(0, 5, 0));
+                    var _ =  storageService.TryGetblobSasUri(item.UserId,  out string url,new TimeSpan(0, 5, 0));
                     item.AvatarUrl = url;
                 });
             });
