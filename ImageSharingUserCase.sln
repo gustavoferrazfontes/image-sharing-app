@@ -46,6 +46,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{62966274
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageSharing.AzureSearch.Upload", "Tools\ImageSharing.AzureSearch.Upload\ImageSharing.AzureSearch.Upload.csproj", "{EB4AD63D-80E5-4C72-9017-31A33402E0B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageSharing.Posts.Infra", "PostsContext\ImageSharing.Posts.Infra\ImageSharing.Posts.Infra.csproj", "{FB07DAD3-3BE8-4AE0-AFFF-2E420505001F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -112,6 +114,10 @@ Global
 		{EB4AD63D-80E5-4C72-9017-31A33402E0B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB4AD63D-80E5-4C72-9017-31A33402E0B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB4AD63D-80E5-4C72-9017-31A33402E0B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB07DAD3-3BE8-4AE0-AFFF-2E420505001F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB07DAD3-3BE8-4AE0-AFFF-2E420505001F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB07DAD3-3BE8-4AE0-AFFF-2E420505001F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB07DAD3-3BE8-4AE0-AFFF-2E420505001F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,6 +136,7 @@ Global
 		{B1DE5314-FAB8-4DCD-8D94-81C5744FA570} = {3639D8C7-89A0-4232-A330-F0E8C04BF697}
 		{30351F6F-FF59-4858-A452-83D477865C47} = {3639D8C7-89A0-4232-A330-F0E8C04BF697}
 		{EB4AD63D-80E5-4C72-9017-31A33402E0B8} = {62966274-A538-4116-915A-084D2E966282}
+		{FB07DAD3-3BE8-4AE0-AFFF-2E420505001F} = {73CE2B37-06AE-4848-BFF6-C7D541937430}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CAC7A6D4-3CC4-492A-84FC-BDF12CC9C2A1}
