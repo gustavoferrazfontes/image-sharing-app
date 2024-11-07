@@ -1,20 +1,21 @@
-﻿using ImageSharing.Auth.Infra.EF;
+﻿using CSharpFunctionalExtensions;
+using ImageSharing.Auth.Infra.EF;
 using ImageSharing.SharedKernel.Data;
 
 namespace ImageSharing.Auth.Infra.Repositories;
 
 public class UnitOfWork(AuthDbContext context) : IUnitOfWork
 {
-    public Task CommitAsync()
+    public async Task<Result> CommitAsync()
     {
         try
         {
-            return context.SaveChangesAsync();
+            await context.SaveChangesAsync();
+            return Result.Success();
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+           return  Result.Failure("An error occurred while saving changes to the database.");
         }
     }
 }

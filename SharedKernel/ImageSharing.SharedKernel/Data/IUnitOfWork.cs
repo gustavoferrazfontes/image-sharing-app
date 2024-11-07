@@ -1,6 +1,8 @@
-﻿namespace ImageSharing.SharedKernel.Data;
+﻿using CSharpFunctionalExtensions;
+
+namespace ImageSharing.SharedKernel.Data;
 
 public interface IUnitOfWork
 {
-    Task CommitAsync();
+    Task<Result> CommitAsync();
 }
