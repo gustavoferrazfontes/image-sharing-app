@@ -21,5 +21,5 @@ internal class Post:IEntity
     public string? Subtitle { get; private set; }
     public string[]? Tags { get; private set; }
     
-    public string ImagePath { get; private set; }
+    public string[] ImagePath { get; private set; }
 }
